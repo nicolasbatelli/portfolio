@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { models } from "@/content/models";
 import { ModelViewer } from "@/components/model-viewer";
 import { Badge } from "@/components/ui/badge";
@@ -82,7 +83,96 @@ export default async function ModelPage({ params }: PageProps) {
                 {model.printSettings.infill && (
                   <li>Infill: {model.printSettings.infill}</li>
                 )}
+                {model.printSettings.walls && (
+                  <li>Walls: {model.printSettings.walls}</li>
+                )}
+                {model.printSettings.topBottomLayers && (
+                  <li>Top / bottom: {model.printSettings.topBottomLayers}</li>
+                )}
+                {model.printSettings.supports && (
+                  <li>Supports: {model.printSettings.supports}</li>
+                )}
               </ul>
+            </div>
+          </>
+        )}
+
+        {model.notes && model.notes.length > 0 && (
+          <>
+            <Separator className="my-8" />
+            <div className="text-sm text-muted-foreground">
+              <p className="font-medium text-foreground">Build notes</p>
+              <ul className="mt-2 list-inside list-disc space-y-1">
+                {model.notes.map((note) => (
+                  <li key={note}>{note}</li>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
+
+        {model.components && model.components.length > 0 && (
+          <>
+            <Separator className="my-8" />
+            <div className="text-sm text-muted-foreground">
+              <p className="font-medium text-foreground">Hardware used</p>
+              <ul className="mt-3 space-y-4">
+                {model.components.map((component) => (
+                  <li key={component.label}>
+                    {component.image ? (
+                      <div className="flex items-center gap-4">
+                        <div className="relative size-20 shrink-0 overflow-hidden rounded-lg border border-border bg-white">
+                          <Image
+                            src={component.image}
+                            alt={component.label}
+                            fill
+                            sizes="80px"
+                            className="object-contain p-1"
+                          />
+                        </div>
+                        <span className="text-foreground">{component.label}</span>
+                      </div>
+                    ) : component.url ? (
+                      <Link
+                        href={component.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-primary underline-offset-4 hover:underline"
+                      >
+                        {component.label}
+                        <ExternalLink className="size-3" />
+                      </Link>
+                    ) : (
+                      <span>{component.label}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
+
+        {model.credit && (
+          <>
+            <Separator className="my-8" />
+            <div className="text-sm text-muted-foreground">
+              <p>
+                {model.credit.text}
+                {model.credit.link && (
+                  <>
+                    {" "}
+                    <Link
+                      href={model.credit.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-primary underline-offset-4 hover:underline"
+                    >
+                      {model.credit.link.label}
+                      <ExternalLink className="size-3" />
+                    </Link>
+                  </>
+                )}
+              </p>
             </div>
           </>
         )}
