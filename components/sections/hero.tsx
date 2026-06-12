@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, Code2, Mail } from "lucide-react";
+import { ArrowDown, Code2, Download, Mail } from "lucide-react";
 import { siteConfig } from "@/content/site";
 import { MotionWrapper } from "@/components/motion-wrapper";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,10 @@ export function Hero() {
             <Button size="lg" render={<Link href="/#contact" />}>
               <Mail className="size-4" />
               Get in touch
+            </Button>
+            <Button variant="outline" size="lg" render={<a href={siteConfig.resume} download />}>
+              <Download className="size-4" />
+              Download CV
             </Button>
             <Button variant="outline" size="lg" render={<Link href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" />}>
               <Code2 className="size-4" />

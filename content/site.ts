@@ -8,6 +8,7 @@ export const siteConfig = {
     "Outside of work I'm a maker and car enthusiast. I've been 3D designing and printing for years — I started out modeling in AutoCAD on an Anet A8, moved to Autodesk Inventor with an Ender 3 V2, and now run a small print farm of two Ender 3 V2s and a Bambu Lab A1 Combo. I'm also hands-on with my cars and never hesitate to get my hands dirty: I'm building a 2008 VW Touareg V8 for off-roading and a Toyota GR86 (in red) for the racetrack.",
   email: "nicolasbatelli96@gmail.com",
   location: "Buenos Aires, Argentina",
+  resume: "/Resume_NicolasBatelli.pdf",
   githubUsername: process.env.GITHUB_USERNAME ?? "nicolasbatelli",
   links: {
     github: "https://github.com/nicolasbatelli",
